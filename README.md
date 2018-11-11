@@ -1,6 +1,6 @@
 # Python Sandbox | SC-T-308-PRLA
 
-[![Unlicense](https://img.shields.io/badge/license-UNLICENSE-lightgrey.svg?style=for-the-badge)](https://unlicense.org/)
+[![Unlicense](https://img.shields.io/badge/license-UNLICENSE-lightgrey.svg)](https://unlicense.org/)
 
 ## Purpose
 
