@@ -1,45 +1,48 @@
+""" Playing around with filter higher order function and lambda expresions. """
 from pprint import pprint  # Makes the formating nice when printing tuples/lists
 from scientist import scientists
 
 # Using one lambda in filter.
-winners = tuple(filter(lambda x: x.nobel is True, scientists))
+WINNERS = tuple(filter(lambda x: x.nobel is True, scientists))
 
 print('---- Nobel Winners: -----')
-pprint(winners)
+pprint(WINNERS)
 
 print()
 print()
 
 # Using two lambdas in one filter.
-physics_winners = tuple(filter(lambda p: p.field == 'physics' and p.nobel, scientists))
+PHYSICS_WINNERS = tuple(
+    filter(lambda p: p.field == 'physics' and p.nobel, scientists))
 
 print('---- Physics Nobel Winners: ------')
-pprint(physics_winners)
+pprint(PHYSICS_WINNERS)
 
-# Defining two filter functions
-def physics_filter(x):
-    return x.field == 'physics'
+def physics_filter(sci):
+    """ Defining a filter function. """
+    return sci.field == 'physics'
 
-def nobel_filter(x):
-    return x.nobel
+def nobel_filter(sci):
+    """ Defining a filter function. """
+    return sci.nobel
 
 print()
 print()
 
 print('------ with stacked filter functions ------')
 
-# Stacking two filters together to make "building blocks" that can be used many times.
-phy_win = tuple(filter(physics_filter, filter(nobel_filter, scientists)))
+# Stacking filters together to make "blocks" that can be used many times.
+PHY_WIN = tuple(filter(physics_filter, filter(nobel_filter, scientists)))
 
-pprint(phy_win)
+pprint(PHY_WIN)
 
 print()
 print()
 
 # List comprehension - Filter'ish
-list_comp = tuple(x for x in scientists if x.nobel is True and x.field == 'chemistry')
+LIST_COMP = tuple(
+    x for x in scientists if x.nobel is True and x.field == 'chemistry')
 
 print('------ with list comprehension ------')
 
-pprint(list_comp)
-
+pprint(LIST_COMP)

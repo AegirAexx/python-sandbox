@@ -1,16 +1,17 @@
+""" Playing around with immutable data types and pprint. """
 from pprint import pprint # Prettier printing of lists
 from scientist import Scientist
 
 print(Scientist)
 
-ada = Scientist(name = 'Ada Lovelace', field = 'math', born = 1815, nobel = False)
+ADA = Scientist(name='Ada Lovelace', field='math', born=1815, nobel=False)
 
 print('--------------')
-print(ada.name)
-print(ada.field)
-print(ada.born)
-print(ada.nobel)
+print(ADA.name)
+print(ADA.field)
+print(ADA.born)
+print(ADA.nobel)
 print('--------------')
-pprint(ada)
+pprint(ADA)
 print('--------------')
-print(ada)
+print(ADA)

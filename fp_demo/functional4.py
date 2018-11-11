@@ -1,48 +1,50 @@
-
-import collections # To bring in "Default Dictionary"
-from functools import reduce # Bring in reduce()
-from scientist import scientists
-from pprint import pprint
+""" Playing around with REDUCE, MAP and Lambdas. """
 from datetime import datetime
+from functools import reduce # Bring in reduce()
+from pprint import pprint
+import collections # To bring in "Default Dictionary"
+from scientist import scientists
 
 
 def get_age(year_of_birth):
+    """ Returns the age of the person. """
     return datetime.now().year - year_of_birth
 
-age_list = tuple(map(lambda x: get_age(x.born), scientists))
+AGE_LIST = tuple(map(lambda x: get_age(x.born), scientists))
 
-pprint(age_list)
+pprint(AGE_LIST)
 
-total_age = reduce(lambda acc, val: acc+val, age_list, 0)
+TOTAL_AGE = reduce(lambda acc, val: acc+val, AGE_LIST, 0)
 
 # If used on a dictionary, a "key" can be set to reduce.
 # reduce(lambda acc, val: acc + val['key'], dictionary, 0)
 
 print('----------------')
-pprint(total_age)
+pprint(TOTAL_AGE)
 
 
 # Use reduce to create a dictionary that looks like this from the list of scientists
 # {'math': [], 'physics': [], 'chemistry': [], 'astronomy': []}
 
 def reducer(acc, val):
+    """ Defining a reducer to create a Dictionary. """
     acc[val.field].append(val.name)
     return acc
 
-scientists_by_field_predefined_dict = reduce(
+SCIENTISTS_BY_FIELD_PREDEFINED_DICT = reduce(
     reducer,
     scientists,
     {'math': [], 'physics': [], 'chemistry': [], 'astronomy': []}
 )
 
 print('----------------')
-pprint(scientists_by_field_predefined_dict)
+pprint(SCIENTISTS_BY_FIELD_PREDEFINED_DICT)
 
-scientists_by_field_default_dict = reduce(
+SCIENTISTS_BY_FIELD_DEFAULT_DICT = reduce(
     reducer,
     scientists,
     collections.defaultdict(list)
 )
 
 print('----------------')
-pprint(scientists_by_field_default_dict)
+pprint(SCIENTISTS_BY_FIELD_DEFAULT_DICT)

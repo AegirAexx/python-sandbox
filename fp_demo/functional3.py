@@ -1,28 +1,33 @@
+"""" Playing around with MAP higher order function and lambdas. """
+from datetime import datetime
 from pprint import pprint
 from scientist import scientists
-from datetime import datetime
 
-def age(x):
-    return datetime.now().year - x
+def age(yob):
+    """ Accepts year of birth and returns the persons age. """
+    return datetime.now().year - yob
 
-names_and_ages = tuple(map(lambda x: {'name': x.name, 'age': age(x.born)}, scientists))
+NAMES_AND_AGES = tuple(
+    map(lambda x: {'name': x.name, 'age': age(x.born)}, scientists))
 
 
-pprint(names_and_ages)
+pprint(NAMES_AND_AGES)
 
 print('---------------------------')
 
-# String interpolation using format_map() & vars() | Also see formet()
 
-#def ip_str(x):
-#    age = datetime.now().year - x.born
-#    message = '{x.name} is {age} years old.'
-#    return message.format_map(vars())
+def ip_str_1(sci):
+    """String interpolation using format_map() & vars() | Also see format()."""
+    sci_age = datetime.now().year - sci.born
+    message = '{sci.name} is {sci_age} years old.'
+    return message.format_map(vars())
 
-def ip_str(x):
-    data = '%s is %d years old' % (x.name, (datetime.now().year - x.born))
+def ip_str_2(sci):
+    """String interpolation using format_map() & vars() | Also see format()."""
+    data = '%s is %d years old' % (sci.name, (datetime.now().year - sci.born))
     return data
 
-names_and_ages2 = tuple(map(lambda x: ip_str(x), scientists))
+NAMES_AND_AGES2 = tuple(
+    map(lambda x: ip_str_2(x), scientists))
 
-pprint(names_and_ages2)
+pprint(NAMES_AND_AGES2)

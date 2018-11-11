@@ -1,12 +1,14 @@
+""" Serves a data store for all the functional progaming tasks in the
+other files. Playing around with NamedTuples. """
 from collections import namedtuple
 
 # Use Tuples over lists because lists are mutable while tuples are not.
 # Named Tuples class - immutable
 Scientist = namedtuple('Scientist', [
-  'name',
-  'field',
-  'born',
-  'nobel',
+    'name',
+    'field',
+    'born',
+    'nobel',
 ])
 
 # Using tuples rather than list - immutable
