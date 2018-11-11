@@ -1,6 +1,5 @@
 
 ''' Smallest multiple
-    Problem 5
     2520 is the smallest number that can be divided by each of the
     numbers from 1 to 10 without any remainder.
 
@@ -8,8 +7,6 @@
     by all of the numbers from 1 to 20? '''
 
 import math
-
-# Final answer is: 232792560
 
 # Straight up Brute force method: Runtime is about 15 minutes.
 
@@ -30,13 +27,11 @@ import math
 # print(find_that_number(20))
 
 ''' A much more sophisticated method using mathematics:
-        Runtime is less than 1 second.
     https://en.wikipedia.org/wiki/Least_common_multiple
     https://en.wikipedia.org/wiki/Euclidean_algorithm '''
 
-
 # Uses 'log' from 'math'
-# Uses 'sqrt' from 'math'
+# Runtime is less than one second.
 
 def find_the_primes_1(pool_of_primes):
     ''' Finds all the primes in the number range and returns them in a list'''
@@ -60,4 +55,4 @@ def least_common_multiple_1(number):
         lcm *= prime**(math.log(number, prime)//1)
     return int(lcm)
 
-# print(least_common_multiple_1(20))
+print(least_common_multiple_1(20))
