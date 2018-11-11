@@ -12,7 +12,7 @@ November. The course is @ Reykjavik University and is labeled SC-T-308-PRLA.
 
 I plan to put all of the progamming projects here that will be assigned during the course.
 
-I will have to get permission from the teacher about posting the projects here so there is a chance
-that I will be asked to make this repository private, at least while course being taught.
+I will have to get permission from the teacher about pushing the source code here so there is a chance
+that I will be asked to make this repository private, at least while the course is being taught.
 
 The course will take place between November 26th and December 14th 2018.
