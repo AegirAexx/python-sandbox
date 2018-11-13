@@ -1,4 +1,3 @@
-
 ''' Smallest multiple
     2520 is the smallest number that can be divided by each of the
     numbers from 1 to 10 without any remainder.
@@ -33,6 +32,7 @@ import math
 # Uses 'log' from 'math'
 # Runtime is less than one second.
 
+
 def find_the_primes_1(pool_of_primes):
     ''' Finds all the primes in the number range and returns them in a list'''
     prime_numbers = []
@@ -48,11 +48,13 @@ def find_the_primes_1(pool_of_primes):
         index_i += 1
     return prime_numbers
 
+
 def least_common_multiple_1(number):
     ''' Return the least common multiple number '''
     lcm = 1
     for prime in find_the_primes_1(number):
         lcm *= prime**(math.log(number, prime)//1)
     return int(lcm)
+
 
 print(least_common_multiple_1(20))

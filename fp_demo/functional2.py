@@ -1,5 +1,5 @@
 """ Playing around with filter higher order function and lambda expresions. """
-from pprint import pprint  # Makes the formating nice when printing tuples/lists
+from pprint import pprint  # Nicer formatting when printing tuples/lists
 from scientist import scientists
 
 # Using one lambda in filter.
@@ -18,13 +18,16 @@ PHYSICS_WINNERS = tuple(
 print('---- Physics Nobel Winners: ------')
 pprint(PHYSICS_WINNERS)
 
+
 def physics_filter(sci):
     """ Defining a filter function. """
     return sci.field == 'physics'
 
+
 def nobel_filter(sci):
     """ Defining a filter function. """
     return sci.nobel
+
 
 print()
 print()

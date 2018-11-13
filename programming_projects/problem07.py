@@ -4,8 +4,9 @@
 
     What is the 10001st prime number? '''
 
+
 def find_prime_number(rank):
-    """ Takes the rank of which prime number you want to find and returns it."""
+    '''Takes the rank of which prime number you want to find and returns it.'''
     prime_rank = 0
     index_i = 2
     while prime_rank < rank:
@@ -18,5 +19,6 @@ def find_prime_number(rank):
             prime_rank += 1
         index_i += 1
     return index_i - 1
+
 
 print(find_prime_number(10001))

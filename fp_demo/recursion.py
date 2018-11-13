@@ -1,5 +1,6 @@
 """ Playing around with simple recursion. """
 
+
 def rec(number):
     """ Recursive function that prints every step of the way for easy tracking.
     This function does not do anything but helped me figure things out in
@@ -14,6 +15,7 @@ def rec(number):
         print('After(number): ', number)
         print('After(result): ', result)
     return result
+
 
 print('\n\nRecursion Example Results')
 rec(6)

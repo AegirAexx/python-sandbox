@@ -53,26 +53,26 @@ STRING19 = '05886116467109405077541002256983155200055935729725'
 STRING20 = '71636269561882670428252483600823257530420752963450'
 
 # Combining all 20 strings into one 1000 digit long string.
-THOUSAND_STRING = (STRING1
-                   + STRING2
-                   + STRING3
-                   + STRING4
-                   + STRING5
-                   + STRING6
-                   + STRING7
-                   + STRING8
-                   + STRING9
-                   + STRING10
-                   + STRING11
-                   + STRING12
-                   + STRING13
-                   + STRING14
-                   + STRING15
-                   + STRING16
-                   + STRING17
-                   + STRING18
-                   + STRING19
-                   + STRING20)
+THOUSAND_STRING = (STRING1 +
+                   STRING2 +
+                   STRING3 +
+                   STRING4 +
+                   STRING5 +
+                   STRING6 +
+                   STRING7 +
+                   STRING8 +
+                   STRING9 +
+                   STRING10 +
+                   STRING11 +
+                   STRING12 +
+                   STRING13 +
+                   STRING14 +
+                   STRING15 +
+                   STRING16 +
+                   STRING17 +
+                   STRING18 +
+                   STRING19 +
+                   STRING20)
 
 # Creating an immutable tuple to work with each digit. Total length = 1000.
 THOUSAND = tuple(THOUSAND_STRING)

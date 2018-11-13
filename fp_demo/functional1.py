@@ -1,5 +1,5 @@
 """ Playing around with immutable data types and pprint. """
-from pprint import pprint # Prettier printing of lists
+from pprint import pprint  # Prettier printing of lists
 from scientist import Scientist
 
 print(Scientist)
