@@ -19,12 +19,13 @@ def mod_sum(integer):
 def sum_no_3(lis):
     """ Takes a list of numbers and adds them together if the last
     digit is not 3. """
-    sum_list = []
-    for num in lis:
-        temp = str(num)
-        if temp[-1] != '3':
-            sum_list.append(int(temp))
-    return sum(sum_list)
+    # sum_list = []
+    # for num in lis:
+        # temp = str(num)
+        # if temp[-1] != '3':
+            # sum_list.append(int(temp))
+    # return sum(sum_list)
+    return sum(x for x in lis if x % 10 != 3)
 
 
 def sum_first(lis, integer):
@@ -38,8 +39,9 @@ def sum_first(lis, integer):
 
 def list_product(lis1, lis2):
     """ Takes two lists a multiplies the same indies together. """
-    combined = zip(lis1, lis2)
-    return list(starmap(mul, combined))
+    # combined = zip(lis1, lis2)
+    # return list(starmap(mul, combined))
+    return list(starmap(mul, zip(lis1, lis2)))
 
 
 def remove_empty(lis):
@@ -50,9 +52,9 @@ def remove_empty(lis):
 
 def decrypt(message):
     """ Takes a string and decrypt's it so that it's readable. """
-    decrypted = []
-    for letter in message[0::3]:
-        decrypted.append(letter)
+    decrypted = [x for x in message[::3]]
+    # for letter in message[0::3]:
+        # decrypted.append(letter)
     return ''.join(decrypted)
 
 
@@ -69,17 +71,12 @@ def boom(integer):
     """ Takes an integer and makes a list with each number as a string,
     if the number is divisable by 7 or contains 7 it is replaced by the
     string 'boom!'."""
-    final_list = []
     string_list = []
-    int_list = [x for x in range(1, integer + 1)]
-    for num in int_list:
-        if num % 7 == 0:
+    for num in range(1, integer + 1):
+        if num % 7 == 0 or num % 10 == 7:
             string_list.append('boom!')
-        else:
-            string_list.append(str(num))
-    for num in string_list:
-        if '7' in num:
-            final_list.append('boom!')
-        else:
-            final_list.append(num)
-    return final_list
+        string_list.append(str(num))
+    return string_list
+
+
+print(boom(20))
