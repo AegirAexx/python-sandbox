@@ -11,20 +11,12 @@ def sum_two(first, second):
 def mod_sum(integer):
     """ Takes a range and returns the sum of multiples of 3 or 5 below
     the range. """
-    # numbers = [x for x in range(integer) if x % 3 == 0 or x % 5 == 0]
-    # return sum(numbers)
     return sum(x for x in range(integer) if x % 3 == 0 or x % 5 == 0)
 
 
 def sum_no_3(lis):
     """ Takes a list of numbers and adds them together if the last
     digit is not 3. """
-    # sum_list = []
-    # for num in lis:
-        # temp = str(num)
-        # if temp[-1] != '3':
-            # sum_list.append(int(temp))
-    # return sum(sum_list)
     return sum(x for x in lis if x % 10 != 3)
 
 
@@ -32,15 +24,11 @@ def sum_first(lis, integer):
     """ Returns the sum of the first n integers on the list. """
     if len(lis) < integer:
         return sum(lis)
-    # temp_list = [x for x in islice(lis, 0, integer)]
-    # return sum(temp_list)
     return sum(x for x in lis[0:integer:])
 
 
 def list_product(lis1, lis2):
     """ Takes two lists a multiplies the same indies together. """
-    # combined = zip(lis1, lis2)
-    # return list(starmap(mul, combined))
     return list(starmap(mul, zip(lis1, lis2)))
 
 
@@ -53,8 +41,6 @@ def remove_empty(lis):
 def decrypt(message):
     """ Takes a string and decrypt's it so that it's readable. """
     decrypted = [x for x in message[::3]]
-    # for letter in message[0::3]:
-        # decrypted.append(letter)
     return ''.join(decrypted)
 
 
@@ -75,8 +61,6 @@ def boom(integer):
     for num in range(1, integer + 1):
         if num % 7 == 0 or num % 10 == 7:
             string_list.append('boom!')
-        string_list.append(str(num))
+        else:
+            string_list.append(str(num))
     return string_list
-
-
-print(boom(20))
