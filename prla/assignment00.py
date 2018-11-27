@@ -1,5 +1,5 @@
 """ Assignment 0 in SC-T308-PRLA """
-from itertools import islice, starmap
+from itertools import starmap  # islice,
 from operator import mul
 
 
@@ -11,8 +11,9 @@ def sum_two(first, second):
 def mod_sum(integer):
     """ Takes a range and returns the sum of multiples of 3 or 5 below
     the range. """
-    numbers = [x for x in range(integer) if x % 3 == 0 or x % 5 == 0]
-    return sum(numbers)
+    # numbers = [x for x in range(integer) if x % 3 == 0 or x % 5 == 0]
+    # return sum(numbers)
+    return sum(x for x in range(integer) if x % 3 == 0 or x % 5 == 0)
 
 
 def sum_no_3(lis):
@@ -20,9 +21,9 @@ def sum_no_3(lis):
     digit is not 3. """
     sum_list = []
     for num in lis:
-        temp = list(str(num))
+        temp = str(num)
         if temp[-1] != '3':
-            sum_list.append(int(''.join(temp)))
+            sum_list.append(int(temp))
     return sum(sum_list)
 
 
@@ -30,8 +31,9 @@ def sum_first(lis, integer):
     """ Returns the sum of the first n integers on the list. """
     if len(lis) < integer:
         return sum(lis)
-    temp_list = [x for x in islice(lis, 0, integer)]
-    return sum(temp_list)
+    # temp_list = [x for x in islice(lis, 0, integer)]
+    # return sum(temp_list)
+    return sum(x for x in lis[0:integer:])
 
 
 def list_product(lis1, lis2):
