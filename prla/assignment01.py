@@ -1,5 +1,59 @@
 """ Assignment 01 in SC-T-308-PRLA """
 from collections import Counter
+# from pprint import pprint
+
+
+LS_ORIGINAL = """
+acpid.pid     console-kit-daemon.pid  lock        pm-utils      sdp                      upstart-socket-bridge.pid
+acpid.socket  crond.pid               mdm.pid     postgresql    sendsigs.omit.d          upstart-udev-bridge.pid
+apache2       crond.reboot            mdm_socket  pppconfig     shm                      user
+apache2.pid   cups                    motd        resol vconf   udev                     utmp
+avahi-daemon  dbus                    mount       rsyslogd.pid  udisks                   wicd
+console       dhclient.pid            network     samba         udisks2                  wpa_supplicant
+ConsoleKit    initramfs               plymouth    screen        upstart-file-bridge.pid"""
+
+
+LIST_X = ['acpid.pid',
+          'console-kit-daemon.pid',
+          'lock',
+          'pm-utils',
+          'sdp',
+          'upstart-socket-bridge.pid',
+          'acpid.socket',
+          'acrond.pid',
+          'mdm.pid',
+          'postgresql',
+          'sendsigs.omit.d',
+          'upstart-udev-bridge.pid',
+          'apache2',
+          'crond.reboot',
+          'mdm_socket',
+          'pppconfig',
+          'shm',
+          'user',
+          'apache2.pid',
+          'cups',
+          'motd',
+          'resolvconf',
+          'udev',
+          'utmp',
+          'avahi-daemon',
+          'dbus',
+          'mount',
+          'rsyslogd.pid',
+          'udisks',
+          'wicd',
+          'console',
+          'dhclient.pid',
+          'network',
+          'samba',
+          'udisks2',
+          'wpa_supplicant',
+          'ConsoleKit',
+          'initramfs',
+          'plymouth',
+          'screen',
+          'upstart-file-bridge.pid']
 
 
 def cdo(string):
@@ -77,7 +131,13 @@ def birthdays(string):
 
 def process_ls(string):
     """ Takes a multiline string and returns a sorted list. """
-    # Clean up
-    original_sorted = sorted(string.replace('-', '|').split(), key=str.lower)
-    edited_string = ' '.join(original_sorted).replace('|', '-')
+    a = string.replace('-', '|')
+    b = a.replace('\n', ' ')
+    c = sorted(b.split(' '), key=str.lower)
+    d = [x for x in c if x != '']
+    e = ' '.join(d)
+    f = e.replace('|', '-')
+    return f.split()
 
+
+# print(process_ls(LS_ORIGINAL))
