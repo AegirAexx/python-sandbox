@@ -1,5 +1,5 @@
 """ Assignment 0 in SC-T308-PRLA """
-from itertools import starmap  # islice,
+from itertools import starmap
 from operator import mul
 
 
@@ -59,7 +59,7 @@ def boom(integer):
     string 'boom!'."""
     string_list = []
     for num in range(1, integer + 1):
-        if num % 7 == 0 or num % 10 == 7:
+        if num % 7 == 0:
             string_list.append('boom!')
         else:
             string_list.append(str(num))
@@ -67,6 +67,3 @@ def boom(integer):
         if string_list[idx].find('7') != -1:
             string_list[idx] = 'boom!'
     return string_list
-
-
-print(boom(90))
