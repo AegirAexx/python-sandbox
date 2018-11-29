@@ -63,4 +63,10 @@ def boom(integer):
             string_list.append('boom!')
         else:
             string_list.append(str(num))
+    for idx in range(len(string_list)):
+        if string_list[idx].find('7') != -1:
+            string_list[idx] = 'boom!'
     return string_list
+
+
+print(boom(90))
