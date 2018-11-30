@@ -59,16 +59,10 @@ def excel_index(column):
     # Not needed but will insure the right values. There are different
     # ASCII values for uppercase and lowercase letters.
     letters = list(column.upper())
-    # The power for calculating the the base 26 numbers to decimal.
-    power = len(column) - 1
-    # A variable to keep the return value.
-    column_number = 0
-    for letter in letters:
-        # This works like this: LOL = 8514
-        # 26^2 * 12(L) + 26^1 * 15(O) + 26^0 * 12 = 8514
-        column_number += 26**power * (ord(letter) - 64)
-        power -= 1
-    return column_number
+    # This works like this: LOL = 8514
+    # 26^2 * 12(L) + 26^1 * 15(O) + 26^0 * 12 = 8514
+    rev = list(reversed(letters))
+    return sum([26**i * (ord(x) - 64) for i, x in enumerate(rev)])
 
 
 def birthdays(string):
