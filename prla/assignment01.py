@@ -78,31 +78,21 @@ def birthdays(string):
     kt_list = string.split()
     kt_sorted = sorted(kt_list)
     kt_filtered = [x for x in kt_sorted if x != '']
-    bday_list = []
-    # Here we are looking for duplicates in the list.
-    for idx_i in kt_filtered:
-        for idx_j in kt_filtered:
-            # Here we are checking if the first part matches but not the
-            # later part. We are looking for same dates but not complete
-            # matches.
-            if idx_i[0:4] == idx_j[0:4] and idx_i[4:] != idx_j[4:]:
-                bday_list.append(idx_i)
-                break
+    # Here we are checking if the first part matches but not the
+    # later part. We are looking for same dates but not complete
+    # matches.
+    bday_list = set(x for x in kt_filtered
+                    for y in kt_filtered
+                    if x[0:4] == y[0:4] and x[4:] != y[4:])
     # For the last step we use a Set data structure.
     final_list = set()
     # A nested for loop.
     for kennit in bday_list:
-        # A temporary search string for each iteration.
-        string = kennit[0:4]
         # A temporary tuple warehouse for each iteration.
-        temp = []
-        for ktt in bday_list:
-            # If there is a match, put it into the temp list.
-            if ktt.startswith(string):
-                temp.append(ktt)
+        temp = tuple([x for x in bday_list if x.startswith(kennit[0:4])])
         # Now we're out of the inner loop, we append the tuple to
         # the final Set list before the next outer iteration.
-        final_list.add(tuple(temp))
+        final_list.add(temp)
     return list(final_list)
 
 
@@ -126,14 +116,7 @@ def process_ls(string):
     # Using the unpack operator and fancy itertools a list of tuples
     # is generated. Each tuple holds the right order of items.
     semi_processed = list(zip_longest(*list_list, fillvalue='?'))
-    # Setting up the final step. Create an empty array to populate.
-    processed_list = []
     # With nested loops we iterate through everything and
     # append each item to the new list.
-    for index, _ in enumerate(semi_processed):
-        for item in semi_processed[index]:
-            # Here I skip adding '?' to the list.
-            if item.find('?') == -1:
-                # Each item is appended to the list.
-                processed_list.append(item)
-    return processed_list
+    return [item for i, _ in enumerate(semi_processed)
+            for item in semi_processed[i] if item.find('?') == -1]
