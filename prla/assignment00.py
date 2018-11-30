@@ -57,13 +57,5 @@ def boom(integer):
     """ Takes an integer and makes a list with each number as a string,
     if the number is divisable by 7 or contains 7 it is replaced by the
     string 'boom!'."""
-    string_list = []
-    for num in range(1, integer + 1):
-        if num % 7 == 0:
-            string_list.append('boom!')
-        else:
-            string_list.append(str(num))
-    for idx in range(len(string_list)):
-        if string_list[idx].find('7') != -1:
-            string_list[idx] = 'boom!'
-    return string_list
+    return ['boom!' if x % 7 == 0 or str(x).find('7') != -1
+            else x for x in range(1, integer + 1)]
