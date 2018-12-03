@@ -7,8 +7,8 @@ def is_palindrome(s):
 
 def all_palindromes(s):
     with open(s) as f:
-        wo = f.read().splitlines()
-    return [w for w in wo if is_palindrome(w)]
+        word = f.read().splitlines()
+    return [w for w in word if is_palindrome(w)]
 
 
 # print(is_palindrome('Alala Alala'))
@@ -20,6 +20,6 @@ def all_palindromes(s):
 # print(all_palindromes('small_words.txt'))
 # print(all_palindromes('med_words.txt'))
 # print(all_palindromes('big_words.txt'))
-print(all_palindromes('special_words.txt'))
+# print(all_palindromes('special_words.txt'))
 # ['Alala Alala', 'Mbm Mbm', 'Ono Ono', "Passe's sap",
 # "Selz Azle's", 'xix xix']

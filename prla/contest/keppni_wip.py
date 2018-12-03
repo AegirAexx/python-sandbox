@@ -18,8 +18,34 @@ The function returns True if the parentheses are balanced; else False."""
 # print(balanced("('',)"))
 
 
+# from collections import Counter
+
+
+# def balanced(s):
+#     c = Counter([x for x in s if x == '(' or x == ')'])
+#     if c['('] == c[')'] and s.rfind(r"(") < s.rfind(r")"):
+#         return True
+#     return False
+
 def balanced(s):
-    pass
+    L = 0
+    R = 0
+    li = list(s)
+    for x in li:
+        if R > L:
+            return False
+        elif x == '(':
+            L += 1
+        elif x == ')':
+            R += 1
+    return L == R
+
+
+# print(balanced('(()())()'))  # >> True
+# print(balanced('(())())()'))  # >> False
+# print(balanced(")(')(',"))  # >> False
+# print(balanced("('',)"))  # >> True
+# print(balanced('(())(()))(()'))  # >> False
 
 
 """A palindrome is a number that is read the same from left to right and
