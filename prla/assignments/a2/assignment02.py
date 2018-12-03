@@ -19,15 +19,15 @@ List of poker hand rankings
 Hand            Return value
 ------------------------------
 Straight flush	|   8
-Royal flush	    |   9
+Royal flush     |   9
 Four of a kind	|   7
-Full house	    |   6
-Flush	          |   5
-Straight  	    |   4
+Full house      |   6
+Flush           |   5
+Straight        |   4
 Three of a kind	|   3
-Two pair	      |   2
-One pair	      |   1
-High card	      |   0
+Two pair        |   2
+One pair        |   1
+High card       |   0
 ------------------------------  """
 
 
