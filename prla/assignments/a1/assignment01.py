@@ -17,6 +17,13 @@ def duplicates(lis):
     # how many duplicates exist in the structure.
     return [x for x in counter if counter[x] > 1]
 
+# def duplicates(lis):
+#     counter = Counter(lis)
+#     return [x for x in counter if counter[x] > 1]
+
+
+print(duplicates([1337, 42, 5318008, 1337, 5318008, 5885522]))
+
 
 def flatten(lis):
     """ Take a list and flatten it. """
@@ -89,6 +96,20 @@ def birthdays(string):
         final_list.add(temp)
     return list(final_list)
 
+# def birthdays(string):
+#     st = string.split()
+#     dic = Counter(x[0:4] for x in st)
+#     lis = [x for x in dic if dic[x] > 1]
+#     return [tuple([k for k in st if k.startswith(x)]) for x in lis]
+
+
+print(birthdays('''0212862149
+0407792319
+0212849289
+1112792819
+0407992939
+0212970299'''))
+
 
 def process_ls(string):
     """ Takes a multiline string and returns a sorted list. """
@@ -114,3 +135,12 @@ def process_ls(string):
     # append each item to the new list.
     return [item for i, _ in enumerate(semi_processed)
             for item in semi_processed[i] if item.find('?') == -1]
+
+
+print(process_ls("""acpid.pid     console-kit-daemon.pid  lock        pm-utils      sdp                      upstart-socket-bridge.pid
+acpid.socket  crond.pid               mdm.pid     postgresql    sendsigs.omit.d          upstart-udev-bridge.pid
+apache2       crond.reboot            mdm_socket  pppconfig     shm                      user
+apache2.pid   cups                    motd        resolvconf    udev                     utmp
+avahi-daemon  dbus                    mount       rsyslogd.pid  udisks                   wicd
+console       dhclient.pid            network     samba         udisks2                  wpa_supplicant
+ConsoleKit    initramfs               plymouth    screen        upstart-file-bridge.pid"""))
