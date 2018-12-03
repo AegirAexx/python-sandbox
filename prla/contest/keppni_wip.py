@@ -12,6 +12,10 @@ The function returns True if the parentheses are balanced; else False."""
 # True
 # >>> balanced('(())())()')
 # False
+# print(balanced('(()())()'))
+# print(balanced('(())())()'))
+# print(balanced(")(')(',"))
+# print(balanced("('',)"))
 
 
 def balanced(s):
@@ -20,6 +24,7 @@ def balanced(s):
 
 """A palindrome is a number that is read the same from left to right and
 right to left. So, for example, 1331 is a palindrome but 1337 is not.
+
 Whether a number is a palindrome depeonds on the system used to represent
 the number. So for example, then number 73 is not a palindrome in base 10,
 but since 73 = 1001001(2), we have that 73 is a palindrome in base 2.
@@ -53,7 +58,7 @@ As an example, the string:
 
 html>head+body>div+div+p>ul>li*3>a
 
-is expanded into the string
+is expanded into the string:
 
 <html>
     <head>
@@ -73,13 +78,15 @@ is expanded into the string
 
 In the language there are three special symbols:
 
-- The > symbol, which indicates that the rest of the HTML structure is
-nested inside the previous element.
-- The + symbol, which indicates that the rest of the HTML structure is
-adjacent to (a sibling of) the previous element.
-- The * symbol, which indicates that the previous element, and all its
-substructure, is repeated the specified amount of times (this symbol
-is always followed by an integer specifying the amount).
+    - The > symbol, which indicates that the rest of the HTML structure is
+    nested inside the previous element.
+
+    - The + symbol, which indicates that the rest of the HTML structure is
+    adjacent to (a sibling of) the previous element.
+
+    - The * symbol, which indicates that the previous element, and all its
+    substructure, is repeated the specified amount of times (this symbol
+    is always followed by an integer specifying the amount).
 
 Write a function zen_expand(code) that takes as a parameter a single
 string, which contains HTML structure encoded in the language described
@@ -104,9 +111,10 @@ def zen_expand(s):
 takes a single parameter, a path to a file containing a list of words,
 each word on a separate line. The function returns a list of all
 palindromes that can be formed using exactly two words from the list of words.
-
 When determining whether a pair of words is a palindrome we ignore both
-casing and apostrophes. The following word-pairs are, e.g., palindromes.
+casing and apostrophes.
+
+The following word-pairs are, e.g., palindromes.
 
 Dia's aid
 A toyota
@@ -162,5 +170,71 @@ taken all hamsters to clear the plank, respectively. """
 # (900, 9900)
 
 
-def hamsters(l):
-    pass
+# from random import randrange
+
+
+def hamsters(L):
+    # If the list has only one number in it.
+    if len(L) < 2:
+        if L[0] > 5000:
+            return tuple((10000 - L[0], L[0]))
+        else:
+            return tuple((L[0], 10000 - L[0]))
+
+    # Fake input
+    # L = [randrange(10001) for x in range(5)]
+
+    # Generate List and iterable range
+    sorted_list = sorted(L)
+    length_iter = range(len(sorted_list))
+
+    # Generate dictionaries to look up values - orginal and from 0k, 5k and 10k
+    dict_list = {k: v for (k, v) in zip(length_iter, sorted_list)}
+    dict_0k = {k: v for (k, v) in zip(sorted_list, length_iter)}
+    dict_5k = {k: v for (k, v) in zip(
+        [abs(x - 5000) for x in sorted_list], length_iter)}
+    dict_10k = {k: v for (k, v) in zip(
+        [10000 - x for x in sorted_list], length_iter)}
+
+    # Find the least and the greatest time
+
+    # Least - is the one closest to the center.
+    least_value = min(dict_5k.keys())
+    least_key = dict_5k.get(least_value)
+    least_pre = dict_list.get(least_key)
+    least = None
+    if least_pre > 5000:
+        least = 10000 - least_pre
+    else:
+        least = least_pre
+
+    # Greatest - is the value of [0] from the start or the value of [-1] from the end.
+    from_start = max(dict_0k.keys())
+    from_end = max(dict_10k.keys())
+    greatest = None
+    if from_start > from_end:
+        greatest = from_start
+    else:
+        greatest = from_end
+
+    # return tuple((least, greatest))
+
+    # Debug - Debug - Debug
+    print('-' * 70)
+    print('original input:', L)
+    print('sorted list:', sorted_list)
+    print('indexed dicionary:', dict_list)
+    print('-' * 70)
+    print('delta form start:', dict_0k)
+    print('delta from center:', dict_5k)
+    print('delta from end:', dict_10k)
+    print('-' * 70)
+    print('least - greatest:', tuple((least, greatest)))
+    print('-' * 70)
+
+    return tuple((least, greatest))
+
+
+# print(hamsters([100, 900]))
+# print(hamsters([10000]))
+# print(hamsters([8486, 8145, 6002],))  # >>> (3998, 8486)
