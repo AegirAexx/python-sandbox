@@ -1,4 +1,9 @@
 """ Assignment 02 in SC-T-308-PRLA @ Reykjavik University - 2018 """
+from datetime import date
+from itertools import cycle, starmap, chain
+from operator import mul
+from collections import Counter
+import re
 
 """ 01 - Poker hands
 In the game of poker, each player is dealt five cards. The cards are then
@@ -128,8 +133,72 @@ Note that the word chosen by the first player is a valid word from the given
 dictionary that contains only lower case english letters."""
 
 
-def hangman(dict_file, state, guessed):
-    pass
+def constructor(guessed, dashes):
+    """ Returns the partially constucted string for the regular
+    expression string."""
+    # By placing all the guessed letters and the number of dashes seen
+    # into the string. The expresion excludes capital letters, all letters
+    # not in the English alphabet and apostrophes.
+    return '[^\'A-Z\x80-\xFF' + guessed + ']{' + str(dashes) + '}'
+
+
+def hangman(file_name, state, guessed):
+    """ See project description."""
+    # Dynamically construct a regular expression to match possibilities
+    # against a dictionary of words.
+
+    # First append to the list, a caret.
+    reg_ex_lis = ['^']
+    # A variable to track the number of consecutive dashes in the string.
+    dashes = 0
+    # Loop through the state string to count letters and dashes.
+    for index in state:
+        # Each iteration we test two conditions.
+
+        # Check if the index is a dash and if dash count is greater than 0.
+        if dashes != 0 and index != '-':
+            # Call the scaffold constructor.
+            reg_ex_lis.append(constructor(guessed, dashes))
+
+        # Check if the current index is a dash of not.
+        if index != '-':
+            # If it is not a dash, append the the letter and zero the
+            # dash counter.
+            reg_ex_lis.append(index)
+            dashes = 0
+        else:
+            # If it is a dash, add one to the counter.
+            dashes += 1
+
+    # Out of the loop, we check if the dash counter is greater than zero.
+    if dashes != 0:
+        # If true, we append the dash count to the end of the string list.
+        reg_ex_lis.append(constructor(guessed, dashes))
+    # Last we close the string with the dollar sign.
+    reg_ex_lis.append('$')
+    # With everything ready we run the constructed string list through
+    # the regular expresion compiler.
+    reg_ex = re.compile(r''.join(reg_ex_lis))
+
+    # Last step is to run the regular expresion against each word in the
+    # dictionary file.
+
+    # An empty array to return the words matched.
+    results = []
+    # Loop through the file given.
+    with open(file_name) as _file:
+        for line in _file:
+            # Strip all the whitespace pollution.
+            line = line.strip()
+            # Look for a match with re.search
+            match = re.search(reg_ex, line)
+            # If it turns out to be a match...
+            if match is not None:
+                # ...append it to the list
+                results.append(line)
+    # Return the words that matched the state given.
+    return results
+
 
 # >>> hangman('path/to/file', 's-a--o--s', 'aeiosu')
 # ['scaffolds', 'shaddocks', 'shamrocks', 'spanworms', 'staghorns',
@@ -167,8 +236,46 @@ registration date is used and then the number 4 is added to the first digit
 to makes sure there are no conflicts with individuals."""
 
 
-def valid(s):
-    pass
+def valid(number_string):
+    """ See project description."""
+
+    # Add the string version of the numbers to an array as actual numbers.
+    numbers = [int(number) for number in number_string]
+
+    # Make each number into it's own variable.
+    # d[1&2] = day, m[1&2] = month, y[1&2] = year, r[1&2] = random,
+    # c = checksum and m = century.
+    d1, d2, m1, m2, y1, y2, r1, r2, c, m = numbers
+
+    # Check conditions to filter out non-valid numbers.
+
+    # If born in the 20th century.
+    if m == 9:
+        # Run the through datetime.date and catch the ValueError.
+        try:
+            date(1900 + 10 * y1 + y2, 10 * m1 + m2, 10 * d1 + d2)
+        except ValueError:
+            return False
+    # If born in the 21st centrury.
+    elif m == 0:
+        # Run the through datetime.date and catch the ValueError.
+        try:
+            date(2000 + 10 * y1 + y2, 10 * m1 + m2, 10 * d1 + d2)
+        except ValueError:
+            return False
+    # If the last digit is not a nine or a zero then it's not valid.
+    else:
+        return False
+
+    # If the number passed the conditions above we try the checksum.
+    # checksum = 11-((3*D1+2*D2+7*M1+6*M2+5*Y1+4*Y2+3*R1+2*R2)mod11)
+    # The check is executed with some nice library tools but could
+    # just as easily been done with the regular checksum formula.
+    return c == (11 - sum(starmap(mul, zip(
+        map(int, cycle('32765432')), numbers[0:8]))) % 11)
+    # return c == (11 - ((3 * d1) + (2 * d2) + (7 * m1)
+    #                    + (6 * m2) + (5 * y1) + (4 * y2)
+    #                    + (3 * r1) + (2 * r2)) % 11)
 
 # >>> valid('0212862149')
 # True
@@ -449,8 +556,50 @@ Note that the test cases will all be from jam.txt. The final test case is the
 whole file."""
 
 
-def jam(s):
-    pass
+def jam(multi_line_string):
+    """ See the project description."""
+
+    # Split the long multi line string by lines into an array.
+    lines_array = multi_line_string.splitlines()
+
+    # Looping through each line and split them into a second demension array.
+    second_demension = [word.split(',') for word in lines_array]
+
+    # Defining the range of the outer loop.
+    outer_loop = range(len(second_demension))
+
+    # The outer loop.
+    for index_i in outer_loop:
+        # Delete the date part
+        del second_demension[index_i][-1]
+        # Delete the location
+        del second_demension[index_i][0]
+
+        # Defining the range of the inner loop.
+        inner_loop = range(len(second_demension[index_i]))
+
+        # The inner loop.
+        for index_j in inner_loop:
+            # Here we overwrite each name variable with a cleaned up version.
+            # This is pretty hacky and could be cleaned up alot.
+            # It basically does 4 replacement jobs and strips whitespace.
+            second_demension[
+                index_i][index_j] = second_demension[
+                    index_i][index_j].replace(' ?', '').replace(
+                        ' and ', '~').replace(' with ', '~').replace(
+                            ' plus ', '~').strip()
+
+    # Back out of the loop and everything joined together temporarily.
+    temp_string = '~'.join(
+        [x for x in chain.from_iterable(second_demension) if x != ''])
+
+    # Using the Counter structure we add everthing into a dictionary.
+    counter_dict = Counter(temp_string.split('~'))
+
+    # Finally return everything in a sorted by name dicionary.
+    return {k: v for (k, v) in sorted(
+        zip(counter_dict.keys(), counter_dict.values()))}
+
 
 # >>> jam("""1/1/1 22 December 1967, Nicholas Parsons with Derek Nimmo, Clement Freud, Wilma Ewart and Beryl Reid, excuses for being late.
 # ... 2/1/2 29 December 1967, Nicholas Parsons with Derek Nimmo, Clement Freud, Sheila Hancock and Carol Binstead, bedrooms.
