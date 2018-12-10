@@ -2,48 +2,40 @@ from pprint import pprint
 
 
 def sort_names(s):
-    # Alphabet list and indices
-    alphabet = ' aábcdðeéfghiíjklmnoópqrstuúvwxyýzþæö'
+    alphabet = 'aábcdðeéfghiíjklmnoópqrstuúvwxyýzþæö'
     alph_lis = []
     for i, d in enumerate(alphabet):
         alph_lis.append(tuple((d, i + 10)))
     alph_idx = {k: v for (k, v) in alph_lis}
     # print(alph_idx)
 
-    # Just first name and last name.
     sans_lis = []
     for i in s:
         x = i.split()
         if len(x) > 2:
-            xcv = x[-1]
-            x.insert(1, xcv)
-            del x[-1]
+            del x[1]
         sans_lis.append(' '.join(x))
     # print(sans_lis)
 
-    # Lower case name with no middle and orginal name.
     lis_idx = []
     for i, x in enumerate(s):
         lis_idx.append(tuple((sans_lis[i].lower(), x)))
-        # print(lis_idx[i][0])
+        print(lis_idx[i][0])
     nam_idx = {k: v for (k, v) in lis_idx}
     # print(lis_idx)
     # pprint(nam_idx)
 
-    # Numeric value of name and orginal.
     num_lis = []
     for s in lis_idx:
-        asd = [str(alph_idx.get(d)) for d in s[0]]
-        num_lis.append(tuple((''.join(asd), nam_idx.get(s[0]))))
-    # qwer = {k: v for (k, v) in num_lis}
-    # pprint(qwer)
+        asd = [alph_idx.get(d) for d in s]
+        num_lis.append(''.join(asd))
+    print(num_lis)
 
     result = []
-    for x in sorted(num_lis):
-        result.append(x[1])
-        # print(x[1])
+    for x in sorted(sans_lis):
+        result.append(nam_idx.get(x.lower()))
 
-    return result
+    # return result
 
 
 print(sort_names(['Þórir Jakob Olgeirsson',

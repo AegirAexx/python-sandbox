@@ -1,9 +1,12 @@
 """ Assignment 02 in SC-T-308-PRLA @ Reykjavik University - 2018 """
 from datetime import date
-from itertools import cycle, starmap, chain
+from itertools import cycle, starmap, chain, permutations, product, combinations
 from operator import mul
 from collections import Counter
 import re
+import json
+import urllib.request
+
 
 """ 01 - Poker hands
 In the game of poker, each player is dealt five cards. The cards are then
@@ -138,7 +141,22 @@ The dictionary file can be obtained here."""
 
 
 def countdown(a, b):
-    pass
+    i = 4
+    lis = []
+    while i < 10:
+        temp = list(permutations(b, i))
+        for x in temp:
+            lis.append(''.join(x))
+        i += 1
+    ready = set(lis)
+    result = []
+    with open(a) as f:
+        for line in f:
+            line = line.strip()
+            if line in ready:
+                result.append(line)
+    return result
+
 
 # >>> countdown('path/to/file', 'pythonxyz')
 # ['hont', 'hypo', 'hypt', 'onyx', 'phony', 'phyton', 'pnxt', 'pnyx', 'pont',
@@ -165,7 +183,44 @@ solutions exist, then any of them can be returned."""
 
 
 def insert_operators(seq, target):
-    pass
+    # Taking apart the sequence and formating it for itertools.combinations.
+    container = []
+    for x in seq:
+        one, two, three = str(x) + '+', str(x) + '-', str(x) + ''
+        container.append([one, two, three])
+    container[-1] = [str(seq[-1])]
+
+    # Create the combinations.
+    com = list(combinations(product(*container), 1))
+
+    # Create a workable list with string equations.
+    eq = list([''.join(x[0]) for x in com])
+    # pprint(eq)
+    for y in eq:
+        acc = 0
+        num = 0
+        flag = 1
+        # print('-------------')
+        # print('eq:', y)
+        for z in reversed(y):
+            if z != '+' and z != '-':
+                num += flag * int(z)
+                flag *= 10
+            elif z == '+':
+                acc += num
+                flag = 1
+                num = 0
+            else:
+                acc -= num
+                flag = 1
+                num = 0
+        acc += num
+        # print('acc:', acc)
+        # print('num:', num)
+        if acc == target:
+            return y + '=' + str(acc)
+    return None
+
 
 # >>> insert_operators([14,8,2,17,5,9],83)
 # "14+82-17-5+9=83"
@@ -403,14 +458,24 @@ JSON file from http://mooshak.ru.is/~python/names.json."""
 
 
 def count_names(s):
-    pass
+    url = 'https://hagstofa.is/media/49531/names.json'
+    req = urllib.request.Request(url)
+    r = urllib.request.urlopen(req).read()
+    t = json.loads(r.decode('utf-8'))
+    one, two = [], []
+    trigger = None
+    for x in t:
+        if x['Nafn'].startswith(s):
+            one.append(int(x['Fjoldi1']))
+            two.append(int(x['Fjoldi2']))
+            trigger = True
+    return tuple((sum(one), sum(two))) if trigger else tuple((0, 0))
+
 
 # >>> count_names('Bja')
 # (3267, 1494)
-
 # >>> count_names('Wat')
 # (8, 2)
-
 # >>> count_names('Snati')
 # (0, 0)
 
@@ -840,7 +905,49 @@ a,á,b,c,d,ð,e,é,f,g,h,i,í,j,k,l,m,n,o,ó,p,q,r,s,t,u,ú,v,w,x,y,ý,z,þ,æ,�
 
 
 def sort_names(s):
-    pass
+    # Alphabet list and indices
+    alphabet = ' aábcdðeéfghiíjklmnoópqrstuúvwxyýzþæö'
+    alph_lis = []
+    for i, d in enumerate(alphabet):
+        alph_lis.append(tuple((d, i + 10)))
+    alph_idx = {k: v for (k, v) in alph_lis}
+    # print(alph_idx)
+
+    # Just first name and last name.
+    sans_lis = []
+    for i in s:
+        x = i.split()
+        if len(x) > 2:
+            xcv = x[-1]
+            x.insert(1, xcv)
+            del x[-1]
+        sans_lis.append(' '.join(x))
+    # print(sans_lis)
+
+    # Lower case name with no middle and orginal name.
+    lis_idx = []
+    for i, x in enumerate(s):
+        lis_idx.append(tuple((sans_lis[i].lower(), x)))
+        # print(lis_idx[i][0])
+    nam_idx = {k: v for (k, v) in lis_idx}
+    # print(lis_idx)
+    # pprint(nam_idx)
+
+    # Numeric value of name and orginal.
+    num_lis = []
+    for s in lis_idx:
+        asd = [str(alph_idx.get(d)) for d in s[0]]
+        num_lis.append(tuple((''.join(asd), nam_idx.get(s[0]))))
+    # qwer = {k: v for (k, v) in num_lis}
+    # pprint(qwer)
+
+    result = []
+    for x in sorted(num_lis):
+        result.append(x[1])
+        # print(x[1])
+
+    return result
+
 
 # >>> sort_names(['Þórir Jakob Olgeirsson',
 #     'Arnar Björn Pálsson',

@@ -1,18 +1,22 @@
-# from itertools import product
-from pprint import pprint
-import re
+from itertools import permutations
 
 
 def countdown(a, b):
-    reg_string = re.compile('^(?:([' + b + '])(?!.{1}\1))+$')
-    results = []
+    i = 4
+    lis = []
+    while i < 10:
+        temp = list(permutations(b, i))
+        for x in temp:
+            lis.append(''.join(x))
+        i += 1
+    ready = set(lis)
+    result = []
     with open(a) as f:
         for line in f:
             line = line.strip()
-            search = re.search(reg_string, line)
-            if search is not None and 9 >= len(line) > 3:
-                results.append(line)
-    return results
+            if line in ready:
+                result.append(line)
+    return result
 
 
 print(countdown('./data/all_words_no_short.txt', 'pythonxyz'))

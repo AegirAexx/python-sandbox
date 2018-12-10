@@ -68,4 +68,4 @@ def hangman(file_name, state, guessed):
     return results
 
 
-print(hangman('./data/all_words.txt', '---------', 'aeiou'))
+print(hangman('./data/all_words.txt', '-e--e-ti--', 'aeiostuvx'))
