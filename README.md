@@ -4,7 +4,7 @@
 
 ## What is this?
 
-This is a collection of my work during a month'ish long period where I started to take up Python. It contains the course assignmenta, a few EulerProject problems and random files where I'm playing around with funcional Python coding.
+This is a collection of my work during a month'ish long period where I started to take up Python. It contains the course assignments, a few EulerProject problems and random files where I'm playing around with funcional Python coding.
 
 ## Purpose
 
