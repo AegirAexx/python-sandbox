@@ -16,5 +16,5 @@ November 2018. The course is @ Reykjavik University and is labeled SC-T-308-PRLA
 
 The 3rd and final project was worked in collaboration with another student so it's in a diffrent repository.
 
-[FolfApp - FOLFWEB](https://github.com/AegirAexx/verkefni3)
+[FolfApp - FOLFWEB](https://github.com/AegirAexx/PRLA-Project3)
 
