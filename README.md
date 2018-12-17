@@ -2,6 +2,10 @@
 
 [![Unlicense](https://img.shields.io/badge/license-UNLICENSE-lightgrey.svg)](https://unlicense.org/)
 
+## What is this?
+
+This is a collection of my work during a month'ish long period where I started to take up Python. It contains the course assignmenta, a few EulerProject problems and random files where I'm playing around with funcional Python coding.
+
 ## Purpose
 
 There is no purpose really. I've just started to pick up Python and this is just stuff that I'm trying
@@ -10,7 +14,7 @@ November 2018. The course is @ Reykjavik University and is labeled SC-T-308-PRLA
 
 ## SC-T-308-PRLA
 
-I plan to put all of the progamming projects here that will be assigned during the course.
+The 3rd and final project was worked in collaboration with another student so it's in a diffrent repository.
 
-The course took place between November 26th and December 14th 2018.
+[FolfApp - FOLFWEB]()
 
